@@ -1,0 +1,91 @@
+<?xml version="1.0"?>
+<template
+    format="6"
+    revision="6"
+    name="MvpForKt"
+    minApi="9"
+    minBuildApi="14"
+    description="Creates a mvp for kotlin">
+
+    <category value="Activity" />
+
+    <parameter
+        id="item"
+        name="Item"
+        type="string"
+        default="Item"
+        constraints="nonempty"
+        help="The name of item"/>
+
+    <parameter
+        id="activityClass"
+        name="Activity Name"
+        type="string"
+        constraints="class|unique|nonempty"
+        suggest="${item}Activity"
+        default="ItemActivity"
+        help="The name of the activity class to create" />
+
+    <parameter
+        id="generateLayout"
+        name="Generate Layout File"
+        type="boolean"
+        default="true"
+        help="If true, a layout file will be generated" />
+
+    <parameter
+        id="activitylayoutName"
+        name="Layout Name"
+        type="string"
+        constraints="layout|unique|nonempty"
+        suggest="${activityToLayout(activityClass)}"
+        default="activity_item"
+        visibility="generateLayout"
+        help="The name of the layout to create for the activity" />
+    
+    <parameter
+        id="fragmentClass"
+        name="Fragment Name"
+        type="string"
+        suggest="${item}Fragment"
+        default="ItemFragment"
+        help="The name of the fragment"/>
+
+    <parameter
+        id="fragmentLayoutName"
+        name="Fragment Layout"
+        type="string"
+        suggest="fragment_${classToResource(item)}"
+        default="fragment_item"
+        help="The name of the layout to create for the fragment"/>
+    
+    <parameter
+        id="presenter"
+        name="Presenter"
+        type="string"
+        suggest="${item}Presenter"
+        help="The name of the Presenter"/>
+
+    <parameter
+        id="contract"
+        name="Contract"
+        type="string"
+        suggest="${item}Contract"/>
+
+    <parameter
+        id="packageName"
+        name="Package name"
+        type="string"
+        constraints="package"
+        default="com.mycompany.myapp" />
+
+    <!-- 128x128 thumbnails relative to template.xml -->
+    <thumbs>
+        <!-- default thumbnail is required -->
+        <thumb>template_blank_activity.png</thumb>
+    </thumbs>
+
+    <globals file="globals.xml.ftl" />
+    <execute file="recipe.xml.ftl" />
+
+</template>
